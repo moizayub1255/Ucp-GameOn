@@ -107,6 +107,14 @@ const Footer = () => {
                     Contact Us
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/login"
+                    className="nav-link text-light text-decoration-none"
+                  >
+                    Admin Pannel
+                  </Link>
+                </li>
               </ul>
             </div>
 
