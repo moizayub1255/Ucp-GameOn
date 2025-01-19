@@ -10,27 +10,24 @@ import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 //router object
 const router = express.Router();
 
-//routing
-//REGISTER || METHOD POST
+// Public routes
+// REGISTER || POST
 router.post("/register", registerController);
 
-//LOGIN || POST
+// LOGIN || POST
 router.post("/login", loginController);
 
-//Forgot Password || POST
+// Forgot Password || POST
 router.post("/forgot-password", forgotPasswordController);
 
-//test routes
+// Test route - accessible only if logged in and is admin
 router.get("/test", requireSignIn, isAdmin, testController);
 
-//protected User route auth
-// router.get("/user-auth", requireSignIn, (req, res) => {
-//   res.status(200).send({ ok: true });
-// });
+// Admin routes - these routes should only be accessed by admins
+router.use("/admin", requireSignIn, isAdmin); // Ensure authentication and authorization for all admin routes
 
-//protected Admin route auth
-// router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
-//   res.status(200).send({ ok: true });
-// });
+router.get("/admin/dashboard", (req, res) => {
+  res.send("Admin Dashboard");
+});
 
 export default router;

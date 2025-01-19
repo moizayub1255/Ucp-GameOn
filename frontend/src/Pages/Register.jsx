@@ -131,7 +131,7 @@ const Register = () => {
                   placeholder="Enter Role"
                   value={formData.role}
                   onChange={handleChange}
-                  required
+                  disabled
                 />
               </div>
 

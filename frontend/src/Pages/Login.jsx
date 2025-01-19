@@ -14,13 +14,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form default submission
-
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/login", // Backend login endpoint
+        "http://localhost:5000/api/v1/auth/login", // Corrected endpoint
         { email, password }
       );
-      
+
       // If login successful
       if (response.data.success) {
         // Store token in localStorage
@@ -47,7 +46,8 @@ const Login = () => {
         <div className="register-container">
           <div className="register-form">
             <h3 className="text-center mb-4">Login</h3>
-            {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}
+            {error && <div className="alert alert-danger">{error}</div>}{" "}
+            {/* Display error message */}
             <form onSubmit={handleLogin}>
               <div className="mb-4">
                 <input
