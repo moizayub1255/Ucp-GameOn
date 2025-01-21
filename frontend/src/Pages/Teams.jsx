@@ -9,6 +9,7 @@ const teams = [
       "The Jaguars are fierce and unstoppable. They thrive under pressure and deliver extraordinary performances. Their passion and resilience are a sight to behold.",
     classes: ["BSCS-8"],
     in: ["Prof. M.Ali", "Miss Amna Awan"],
+    video: "falconstheme.mp4",
   },
   {
     name: "Warriors",
@@ -17,8 +18,8 @@ const teams = [
       "The Warriors are fearless and determined. Their powerful gameplay and strategic approach make them one of the toughest teams to beat. They inspire through their relentless pursuit of excellence.",
     classes: ["BSCS-6", "BSCS-7", "BSCS-F1"],
     in: ["Prof. Rana Hammad Habib", "Miss Hira Shahid"],
+    video: "falconstheme.mp4",
   },
-
   {
     name: "Falcons",
     logo: "/falcon.png",
@@ -26,8 +27,8 @@ const teams = [
       "The Falcons are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
     classes: ["BS English", "BS Chemistry", "BS Math"],
     in: ["Prof. Tariq Mehmood", "Miss Aneeqa"],
+    video: "falconstheme.mp4",
   },
-
   {
     name: "Gladiators",
     logo: "/gladiators.png",
@@ -35,6 +36,7 @@ const teams = [
       "The Gladiators are fierce and unstoppable. They thrive under pressure and deliver extraordinary performances. Their passion and resilience are a sight to behold.",
     classes: ["BBA-7", "BBA-8", "BBA-9", "BBA F-2"],
     in: ["Prof. Kamran Khan", "Prof. Aziz"],
+    video: "falconstheme.mp4",
   },
   {
     name: "Hawks",
@@ -49,24 +51,13 @@ const teams = [
       "BS Psychology",
     ],
     in: ["Prof. Saqib Arshad", "Prof. Badar Chishti", "Miss Warda"],
+    video: "falconstheme.mp4",
   },
 ];
 
 const Teams = () => {
   return (
     <Headandfoot>
-      {/* <div
-        className="text-center text-white bg-dark py-5"
-        style={{
-          backgroundImage: `url('/teams.jpg')`, // Update image path
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="banner-text">
-          <h1 className="text-white">Teams</h1>
-        </div>
-      </div> */}
       <div className="container py-5">
         <h1 className="text-center mb-4">Our Teams</h1>
         <div className="row">
@@ -75,12 +66,15 @@ const Teams = () => {
               <div className="card shadow-sm">
                 <div className="card-body">
                   <div className="text-center mb-3">
-                    <img
-                      src={team.logo}
-                      alt={team.name}
-                      className="img-fluid"
-                      style={{ maxHeight: "150px" }}
-                    />
+                    <video
+                      src={team.video}
+                      width="100%"
+                      height="300"
+                      controls
+                      muted
+                      loop
+                      // style={{ borderRadius: "8px", border: "1px solid #ccc" }}
+                    ></video>
                   </div>
                   <h3 className="card-title text-center">{team.name}</h3>
                   <p className="card-text">{team.description}</p>

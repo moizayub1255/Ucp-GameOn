@@ -1,0 +1,10 @@
+.table {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
