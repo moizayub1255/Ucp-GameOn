@@ -105,11 +105,10 @@ const Leaderboard = () => {
           this page, you can see separate leaderboards for boys and girls with
           fixed positions.
         </p>
-        <h1 className="text-center">Boys</h1>
-        {renderLeaderboard(boys_leaderboard)}
-
-        <h1 className="text-center mt-5">Girls</h1>
+        <h1 className="text-center ">Girls</h1>
         {renderLeaderboard(girls_leaderboard)}
+        <h1 className="text-center mt-5">Boys</h1>
+        {renderLeaderboard(boys_leaderboard)}
       </div>
     </Headandfoot>
   );

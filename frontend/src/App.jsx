@@ -12,10 +12,12 @@ import RegisterNow from "./Pages/RegisterNow.jsx";
 import AdminLayout from "./Admin/AdminLayout.jsx";
 import Dashboard from "./Admin/pages/Dashboard.jsx";
 import ProtectedRoute from "./Admin/ProtectedRoute.jsx"; 
+import ScrollToTop from "./Pages/ScrollToTop.jsx";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> 
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
