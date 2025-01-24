@@ -1,12 +1,19 @@
 import React from "react";
-import DashboardCard from "../components/DashboardCard";
+// import DashboardCard from "../components/DashboardCard";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h2 className="d-flex justify-content-center align-items-center">Admin Dashboard</h2>
-      
-    </div>
+    <div style={{ width: '100%', height: '100vh', border: 'none' }}>
+    <iframe
+      src="/backup/index.html"
+      title="Admin Dashboard"
+      style={{
+        width: '100%',
+        height: '100%',
+        border: 'none',
+      }}
+    />
+  </div>
   );
 };
 
