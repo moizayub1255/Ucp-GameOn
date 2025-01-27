@@ -1,116 +1,85 @@
-import React from "react";
-import Headandfoot from "../Layout/Headandfoot";
-import "../Styles/Leaderboard.css";
+import React, { useState, useEffect } from "react";
 
 const Leaderboard = () => {
-  const boys_leaderboard = [
-    {
-      img: "falcon.png",
-      team: "Falcons",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "warriors.png",
-      team: "Warriors",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "hawks.png",
-      team: "Hawks",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "gladiators.png",
-      team: "Gladiators",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "jaguars.png",
-      team: "Jaguars",
-      points: ["", "", "", "", ""],
-    },
-  ];
+  const [teams, setTeams] = useState(() => {
+    const savedTeams = localStorage.getItem("teams");
+    return savedTeams ? JSON.parse(savedTeams) : [];
+  });
 
-  const girls_leaderboard = [
-    {
-      img: "falcon.png",
-      team: "Falcons",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "warriors.png",
-      team: "Warriors",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "hawks.png",
-      team: "Hawks",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "gladiators.png",
-      team: "Gladiators",
-      points: ["", "", "", "", ""],
-    },
-    {
-      img: "jaguars.png",
-      team: "Jaguars",
-      points: ["", "", "", "", ""],
-    },
-  ];
+  const [boys, setBoys] = useState([]);
+const [girls, setGirls] = useState([]);
 
-  const games = ["Cricket", "Football", "Basketball", "Hockey", "Volleyball"];
+useEffect(() => {
+  const savedTeams = JSON.parse(localStorage.getItem("teams")) || [];
+  const boysTeams = JSON.parse(localStorage.getItem("boysTeams")) || [];
+  const girlsTeams = JSON.parse(localStorage.getItem("girlsTeams")) || [];
 
-  const renderLeaderboard = (leaderboard) => (
-    <div className="table-responsive">
-      <table
-        className="table table-bordered text-center"
-        style={{ width: "100%", maxWidth: "900px", margin: "auto" }}
-      >
-        <thead>
-          <tr>
-            <th>Games</th>
-            {leaderboard.map((team, index) => (
-              <th key={index}>
-                <img
-                  src={team.img}
-                  alt={team.team}
-                  style={{ width: "100px", height: "100px" }}
-                />
-                {/* <div>{team.team}</div> */}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {games.map((game, gameIndex) => (
-            <tr key={gameIndex}>
-              <td>{game}</td>
-              {leaderboard.map((team, teamIndex) => (
-                <td key={teamIndex}>{team.points[gameIndex]}</td>
-              ))}
+  setTeams(savedTeams); // Overall table
+  setBoys(boysTeams); // Boys table
+  setGirls(girlsTeams); // Girls table
+}, []);
+  
+
+  const handleDelete = (teamId) => {
+    const updatedTeams = teams.filter((team) => team.id !== teamId);
+    localStorage.setItem("teams", JSON.stringify(updatedTeams));
+  
+    const boysTeams = updatedTeams.filter(team => team.category === "Boys");
+    const girlsTeams = updatedTeams.filter(team => team.category === "Girls");
+  
+    localStorage.setItem("boysTeams", JSON.stringify(boysTeams));
+    localStorage.setItem("girlsTeams", JSON.stringify(girlsTeams));
+  
+    setTeams(updatedTeams);
+    setBoys(boysTeams);
+    setGirls(girlsTeams);
+  };
+  
+
+  const renderTable = (category) => {
+    return (
+      <div className="container py-4">
+        <h3 className="text-center">{category} Points Table</h3>
+        <table className="table table-bordered table-striped table-hover">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col" className="text-center">#</th>
+              <th scope="col" className="text-center">Game</th>
+              <th scope="col" className="text-center">House</th>
+              <th scope="col" className="text-center">Points</th>
+              <th scope="col" className="text-center">Action</th> {/* Added column for delete action */}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          </thead>
+          <tbody>
+            {teams
+              .filter((team) => team.category === category) // Filter based on category
+              .map((team, index) => (
+                <tr key={team.id} className="text-center">
+                  <td>{index + 1}</td>
+                  <td>{team.name}</td>
+                  <td>{team.house}</td>
+                  <td>{team.points}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(team.id)} // Trigger delete
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
 
   return (
-    <Headandfoot>
-      <div className="container py-5">
-        <h1 className="text-center mb-4">See who's on TOP</h1>
-        <p className="text-center">
-          In GameOn, we have separate sports competitions for boys and girls. On
-          this page, you can see separate leaderboards for boys and girls with
-          fixed positions.
-        </p>
-        <h1 className="text-center ">Girls</h1>
-        {renderLeaderboard(girls_leaderboard)}
-        <h1 className="text-center mt-5">Boys</h1>
-        {renderLeaderboard(boys_leaderboard)}
-      </div>
-    </Headandfoot>
+    <div>
+      {renderTable("Girls")}
+      {renderTable("Boys")}
+    </div>
   );
 };
 

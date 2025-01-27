@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
 import PageNotAvailable from "./Pages/PageNotAvailable.jsx";
@@ -11,13 +11,22 @@ import Register from "./Pages/Register.jsx";
 import RegisterNow from "./Pages/RegisterNow.jsx";
 import AdminLayout from "./Admin/AdminLayout.jsx";
 import Dashboard from "./Admin/pages/Dashboard.jsx";
-import ProtectedRoute from "./Admin/ProtectedRoute.jsx"; 
+import ProtectedRoute from "./Admin/ProtectedRoute.jsx";
 import ScrollToTop from "./Pages/ScrollToTop.jsx";
+import AdminPanel from "./Admin/pages/AdminPannel.jsx";
 
 function App() {
+  const [teams, setTeams] = useState(() => {
+    const savedTeams = localStorage.getItem("teams");
+    return savedTeams ? JSON.parse(savedTeams) : [];
+  });
+
+  const handleTeamsUpdate = (updatedTeams) => {
+    setTeams(updatedTeams);
+  };
   return (
     <Router>
-      <ScrollToTop /> 
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -35,8 +44,14 @@ function App() {
           path="/admin/dashboard"
           element={
             <ProtectedRoute>
-              <AdminLayout> {/* Admin layout wrapper */}
+              <AdminLayout>
+                {" "}
+                {/* Admin layout wrapper */}
                 <Dashboard /> {/* Admin Dashboard */}
+                <div>
+                  <AdminPanel onUpdate={handleTeamsUpdate} />
+                  <Leaderboard />
+                </div>
               </AdminLayout>
             </ProtectedRoute>
           }
