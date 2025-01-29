@@ -1,141 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { usePoints } from "../../PointsContext";
 
 const Dashboard = () => {
-  const initialTeams = [
-    {
-      id: 1,
-      name: "Jaguars",
-      points: 10,
-      img: "https://via.placeholder.com/50",
-    },
-    {
-      id: 2,
-      name: "Warriors",
-      points: 20,
-      img: "https://via.placeholder.com/50",
-    },
-    {
-      id: 3,
-      name: "Falcons",
-      points: 15,
-      img: "https://via.placeholder.com/50",
-    },
-    {
-      id: 4,
-      name: "Hawks",
-      points: 25,
-      img: "https://via.placeholder.com/50",
-    },
-    {
-      id: 5,
-      name: "Gladiators",
-      points: 30,
-      img: "https://via.placeholder.com/50",
-    },
-  ];
+  const { pointsData, setPointsData, updatePoints } = usePoints();
 
-  const [teams, setTeams] = useState(() => {
-    const savedTeams = localStorage.getItem("teams");
-    return savedTeams ? JSON.parse(savedTeams) : initialTeams;
-  });
-
-  const [editState, setEditState] = useState({});
-
-  // Save updated teams to local storage whenever they change
   useEffect(() => {
-    localStorage.setItem("teams", JSON.stringify(teams));
-  }, [teams]);
+    const fetchPointsData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/points");
+        const data = await response.json();
+        setPointsData(data);
+      } catch (error) {
+        console.error("Error fetching points data:", error);
+      }
+    };
 
-  const toggleEdit = (teamId) => {
-    setEditState((prev) => ({
-      ...prev,
-      [teamId]: !prev[teamId],
-    }));
+    fetchPointsData();
+  }, []); // Empty dependency to run once
+
+  const handleUpdatePoints = async (id, newPoints) => {
+    try {
+      const token = localStorage.getItem("token"); // ✅ Token correctly fetched
+
+      await fetch(`http://localhost:5000/api/points/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ Fixed Template Literal Syntax
+        },
+        body: JSON.stringify({ points: newPoints }),
+      });
+
+      updatePoints(id, newPoints); // Update points in context
+    } catch (error) {
+      console.error("Error updating points:", error);
+    }
   };
-
-  const handlePointsChange = (teamId, points, category) => {
-    setTeams((prevTeams) =>
-      prevTeams.map((team) =>
-        team.id === teamId && team.category === category
-          ? { ...team, points: Number(points) }
-          : team
-      )
-    );
-  };
-
-  const savePoints = (teamId, category) => {
-    toggleEdit(teamId);
-    alert("Points updated successfully");
-
-    // Update separate storage for boys/girls
-    const updatedTeams = JSON.parse(localStorage.getItem("teams")) || [];
-    const boysTeams = updatedTeams.filter((team) => team.category === "Boys");
-    const girlsTeams = updatedTeams.filter((team) => team.category === "Girls");
-
-    localStorage.setItem("boysTeams", JSON.stringify(boysTeams));
-    localStorage.setItem("girlsTeams", JSON.stringify(girlsTeams));
-  };
-
-  // const savePoints = (teamId) => {
-  //   toggleEdit(teamId);
-  //   alert("Points updated successfully");
-  // };
 
   return (
-    <div className="dashboard container py-4">
-      <h1 className="text-center">Admin Dashboard</h1>
-      <hr />
-      {/* Overall PointTable for Home Page */}
-      <h3 className="text-center">Overall PointTable</h3>
-
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th>Points</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams.map((team) => (
-            <tr key={team.id}>
-              <td>{team.name}</td>
-              <td>
-                {editState[team.id] ? (
+    <div>
+      <h1>Admin Dashboard</h1>
+      {pointsData.length === 0 ? (
+        <p>No teams found</p>
+      ) : (
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Points</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pointsData.map((team) => (
+              <tr key={team._id}>
+                <td>
+                  {/* <img
+                    src={team.image} // ✅ Ensure backend provides an image URL
+                    alt={team.teamName}
+                    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                  /> */}
+                  {team.teamName}
+                </td>
+                <td>
                   <input
                     type="number"
                     value={team.points}
                     onChange={(e) =>
-                      handlePointsChange(team.id, e.target.value)
+                      handleUpdatePoints(team._id, Number(e.target.value))
                     }
                   />
-                ) : (
-                  team.points
-                )}
-              </td>
-              <td>
-                {editState[team.id] ? (
-                  <button
-                    className="btn btn-success"
-                    onClick={() => savePoints(team.id)}
-                  >
+                </td>
+                <td>
+                  <button onClick={() => handleUpdatePoints(team._id, team.points)}>
                     Save
                   </button>
-                ) : (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => toggleEdit(team.id)}
-                  >
-                    Edit
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* PointTable for Boys */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

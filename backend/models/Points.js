@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const pointsSchema = new mongoose.Schema({
-  game: String,
-  team: String,
-  points: Number,
+  teamName: { type: String, required: true, unique: true },
+  img: { type: String, required: false },  // Optional, only if you want to store images
+  points: { type: Number, required: true, default: 0 }
 });
 
-export default mongoose.model("Points", pointsSchema);
+const Points = mongoose.model("Points", pointsSchema);
+
+export default Points;

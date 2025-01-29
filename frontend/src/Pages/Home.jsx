@@ -1,47 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Headandfoot from "../Layout/Headandfoot";
 import "../Styles/Home.css";
 import AboutMe from "./Aboutme";
-import axios from "axios";
+import { usePoints } from "../PointsContext";
 
 const Home = () => {
-  const [leaderboard, setLeaderboard] = useState([]);
+  const { pointsData, setPointsData } = usePoints();
 
+  // Fetch points data from backend
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    const fetchPointsData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/v1/auth/api/teams"
-        );
-        setLeaderboard(response.data);
+        const response = await fetch("http://localhost:5000/api/points");
+        const data = await response.json();
+        setPointsData(data); // Set the fetched data in context
       } catch (error) {
-        console.error("Error fetching leaderboard data:", error);
+        console.error("Error fetching points data:", error);
       }
     };
-    fetchLeaderboard();
-  }, []);
 
-  // Fetch teams from localStorage whenever the component renders
-  const [teams, setTeams] = useState(() => {
-    const savedTeams = localStorage.getItem("teams");
-    return savedTeams ? JSON.parse(savedTeams) : [];
-  });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const savedTeams = localStorage.getItem("teams");
-      if (savedTeams) {
-        setTeams(JSON.parse(savedTeams));
-      }
-    }, 1000); // Update every second to check for changes
-    return () => clearInterval(interval);
-  }, []);
+    fetchPointsData();
+  }, [setPointsData]);
 
   return (
     <Headandfoot>
       <div className="video-container">
         <video
-          src="Video1.mp4"
+          src="Video2.mp4"
           autoPlay
           loop
           muted
@@ -62,36 +47,30 @@ const Home = () => {
         <table className="table table-bordered table-striped table-hover">
           <thead className="thead-light">
             <tr>
-              <th scope="col" className="text-center">
-                Rank
-              </th>
-              <th scope="col" className="text-center">
-                Team
-              </th>
-              <th scope="col" className="text-center">
-                Points
-              </th>
+              <th scope="col" className="text-center">Rank</th>
+              <th scope="col" className="text-center">Team</th>
+              <th scope="col" className="text-center">Points</th>
             </tr>
           </thead>
           <tbody>
-            {teams
-              .sort((a, b) => b.points - a.points) // Sort by points in descending order
+            {(pointsData || [])
+              .sort((a, b) => b.points - a.points) // Sort teams by points in descending order
               .map((team, index) => (
-                <tr key={team.id} className="text-center">
+                <tr key={team._id} className="text-center">
                   <td>{index + 1}</td>
                   <td>
                     <div className="d-flex align-items-center justify-content-center">
-                      {/* <img
-                src={team.img || "https://via.placeholder.com/50"} // Default image
-                alt={team.name}
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  marginRight: "10px",
-                  borderRadius: "50%",
-                }}
-              /> */}
-                      {team.name}
+                      <img
+                        src={team.img || "https://via.placeholder.com/50"}
+                        alt={team.teamName}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          marginRight: "10px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                      {team.teamName}
                     </div>
                   </td>
                   <td>{team.points}</td>
@@ -103,13 +82,10 @@ const Home = () => {
 
       <h1 className="d-flex justify-content-center">Our Teams</h1>
       <div className="row row-cols-1 row-cols-md-3 g-4 p-4 d-flex justify-content-center">
-        <img src="jaguars.png" alt="" />
-        <img src="warriors.png" alt="" />
-        <img src="hawks.png" alt="" />
-        <img src="falcon.png" alt="" />
-        <img src="gladiators.png" alt="" />
+        {pointsData.map((team) => (
+          <img key={team._id} src={team.img} alt={team.teamName} />
+        ))}
       </div>
-
       <AboutMe></AboutMe>
     </Headandfoot>
   );

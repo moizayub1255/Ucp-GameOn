@@ -13,19 +13,21 @@ import AdminLayout from "./Admin/AdminLayout.jsx";
 import Dashboard from "./Admin/pages/Dashboard.jsx";
 import ProtectedRoute from "./Admin/ProtectedRoute.jsx";
 import ScrollToTop from "./Pages/ScrollToTop.jsx";
-import AdminPanel from "./Admin/pages/AdminPannel.jsx";
+import { PointsProvider } from "./PointsContext.jsx";
+
 
 function App() {
-  const [teams, setTeams] = useState(() => {
-    const savedTeams = localStorage.getItem("teams");
-    return savedTeams ? JSON.parse(savedTeams) : [];
-  });
+  // const [teams, setTeams] = useState(() => {
+  //   const savedTeams = localStorage.getItem("teams");
+  //   return savedTeams ? JSON.parse(savedTeams) : [];
+  // });
 
-  const handleTeamsUpdate = (updatedTeams) => {
-    setTeams(updatedTeams);
-  };
+  // const handleTeamsUpdate = (updatedTeams) => {
+  //   setTeams(updatedTeams);
+  // };
   return (
     <Router>
+      <PointsProvider>
       <ScrollToTop />
       <Routes>
         {/* Public Routes */}
@@ -49,14 +51,15 @@ function App() {
                 {/* Admin layout wrapper */}
                 <Dashboard /> {/* Admin Dashboard */}
                 <div>
-                  <AdminPanel onUpdate={handleTeamsUpdate} />
-                  <Leaderboard />
+                  {/* <AdminPanel onUpdate={handleTeamsUpdate} /> */}
+                  {/* <Leaderboard /> */}
                 </div>
               </AdminLayout>
             </ProtectedRoute>
           }
         />
       </Routes>
+      </PointsProvider>
     </Router>
   );
 }

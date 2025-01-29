@@ -91,20 +91,28 @@ const Footer = () => {
                     Team
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/leaderboard"
                     className="nav-link text-light text-decoration-none"
                   >
                     Leaderboard
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to="/contact"
                     className="nav-link text-light text-decoration-none"
                   >
                     Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/register"
+                    className="nav-link text-light text-decoration-none"
+                  >
+                    Register
                   </Link>
                 </li>
                 <li>
