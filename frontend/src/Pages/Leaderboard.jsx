@@ -1,66 +1,172 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Headandfoot from "../Layout/Headandfoot";
 
 const Leaderboard = () => {
-  const [teams, setTeams] = useState([]);
-  const [boys, setBoys] = useState([]);
-  const [girls, setGirls] = useState([]);
+  const tableStyle = {
+    margin: "20px auto",
+    borderCollapse: "collapse",
+    width: "90%",
+    textAlign: "center",
+    border: "1px solid #ccc",
+  };
 
-  useEffect(() => {
-    // const savedTeams = JSON.parse(localStorage.getItem("teams")) || [];
-    const boysTeams = JSON.parse(localStorage.getItem("boysTeams")) || [];
-    const girlsTeams = JSON.parse(localStorage.getItem("girlsTeams")) || [];
+  const thStyle = {
+    padding: "10px",
+    backgroundColor: "#f4f4f4",
+    border: "1px solid #ccc",
+    fontWeight: "bold",
+  };
 
-    // setTeams(savedTeams); // Overall table
-    setBoys(boysTeams); // Boys table
-    setGirls(girlsTeams); // Girls table
-  }, []);
+  const tdStyle = {
+    padding: "10px",
+    border: "1px solid #ccc",
+  };
 
-  const renderTable = (category) => {
-    const filteredTeams =
-      category === "Boys"
-        ? boys // Boys teams from state
-        : girls; // Girls teams from state
-
-    return (
-      <div className="container py-4">
-        <h3 className="text-center">{category} Points Table</h3>
-        <table className="table table-bordered table-striped table-hover">
-          <thead className="thead-light">
-            <tr>
-              <th scope="col" className="text-center">
-                #
-              </th>
-              <th scope="col" className="text-center">
-                Game
-              </th>
-              <th scope="col" className="text-center">
-                House
-              </th>
-              <th scope="col" className="text-center">
-                Points
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTeams.map((team, index) => (
-              <tr key={team.id} className="text-center">
-                <td>{index + 1}</td>
-                <td>{team.name}</td>
-                <td>{team.house}</td>
-                <td>{team.points}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+  const imgStyle = {
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
   };
 
   return (
     <Headandfoot>
-      {renderTable("Girls")}
-      {renderTable("Boys")}
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h1>See who's on TOP</h1>
+      <p>
+        In GameOn, we have separate sports competitions for boys and girls. On
+        this page, you can see separate leaderboards for boys and girls with
+        fixed positions.
+      </p>
+
+
+    {/* Girls Leaderboard */}
+    <div>
+        <h2>Girls Leaderboard</h2>
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={thStyle}>Games</th>
+              <th style={thStyle}>
+                <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
+              </th>
+              <th style={thStyle}>
+                <img
+                  src="./warriors.png"
+                  alt="UCP Warriors"
+                  style={imgStyle}
+                />
+              </th>
+              <th style={thStyle}>
+                <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
+              </th>
+              <th style={thStyle}>
+                <img
+                  src="./gladiators.png"
+                  alt="Gladiators"
+                  style={imgStyle}
+                />
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={tdStyle}>Cricket</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Football</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Basketball</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Hockey</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Boys Leaderboard */}
+      <div>
+        <h2>Boys Leaderboard</h2>
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={thStyle}>Games</th>
+              <th style={thStyle}>
+                <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
+              </th>
+              <th style={thStyle}>
+                <img
+                  src="./warriors.png"
+                  alt="UCP Warriors"
+                  style={imgStyle}
+                />
+              </th>
+              <th style={thStyle}>
+                <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
+              </th>
+              <th style={thStyle}>
+                <img
+                  src="./gladiators.png"
+                  alt="Gladiators"
+                  style={imgStyle}
+                />
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={tdStyle}>Cricket</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Football</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Basketball</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>Hockey</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+              <td style={tdStyle}>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
+    </div>
     </Headandfoot>
   );
 };

@@ -3,6 +3,7 @@ import { usePoints } from "../../PointsContext";
 
 const Dashboard = () => {
   const { pointsData, setPointsData, updatePoints } = usePoints();
+  const [editedPoints, setEditedPoints] = useState({}); // 🆕 Store edited values
 
   useEffect(() => {
     const fetchPointsData = async () => {
@@ -16,22 +17,32 @@ const Dashboard = () => {
     };
 
     fetchPointsData();
-  }, []); // Empty dependency to run once
+  }, []);
 
-  const handleUpdatePoints = async (id, newPoints) => {
+  const handleChange = (id, value) => {
+    setEditedPoints((prev) => ({ ...prev, [id]: value })); // 🆕 Track local changes
+  };
+
+  const handleUpdatePoints = async (id) => {
+    if (editedPoints[id] === undefined) return; // 🆕 Ignore if no change
+
     try {
-      const token = localStorage.getItem("token"); // ✅ Token correctly fetched
-
+      const token = localStorage.getItem("token");
       await fetch(`http://localhost:5000/api/points/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Fixed Template Literal Syntax
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ points: newPoints }),
+        body: JSON.stringify({ points: editedPoints[id] }),
       });
 
-      updatePoints(id, newPoints); // Update points in context
+      updatePoints(id, editedPoints[id]); // 🆕 Update context
+      setEditedPoints((prev) => {
+        const updated = { ...prev };
+        delete updated[id]; // 🆕 Remove from local state after save
+        return updated;
+      });
     } catch (error) {
       console.error("Error updating points:", error);
     }
@@ -54,25 +65,16 @@ const Dashboard = () => {
           <tbody>
             {pointsData.map((team) => (
               <tr key={team._id}>
-                <td>
-                  {/* <img
-                    src={team.image} // ✅ Ensure backend provides an image URL
-                    alt={team.teamName}
-                    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                  /> */}
-                  {team.teamName}
-                </td>
+                <td>{team.teamName}</td>
                 <td>
                   <input
                     type="number"
-                    value={team.points}
-                    onChange={(e) =>
-                      handleUpdatePoints(team._id, Number(e.target.value))
-                    }
+                    value={editedPoints[team._id] ?? team.points} // 🆕 Use edited value if available
+                    onChange={(e) => handleChange(team._id, Number(e.target.value))}
                   />
                 </td>
                 <td>
-                  <button onClick={() => handleUpdatePoints(team._id, team.points)}>
+                  <button onClick={() => handleUpdatePoints(team._id)}>
                     Save
                   </button>
                 </td>
