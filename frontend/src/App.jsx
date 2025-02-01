@@ -14,6 +14,8 @@ import Dashboard from "./Admin/pages/Dashboard.jsx";
 import ProtectedRoute from "./Admin/ProtectedRoute.jsx";
 import ScrollToTop from "./Pages/ScrollToTop.jsx";
 import { PointsProvider } from "./PointsContext.jsx";
+import Boys from "./Admin/pages/Boys.jsx";
+import Girls from "./Admin/pages/Girls.jsx";
 
 
 function App() {
@@ -48,12 +50,32 @@ function App() {
             <ProtectedRoute>
               <AdminLayout>
                 {" "}
-                {/* Admin layout wrapper */}
-                <Dashboard /> {/* Admin Dashboard */}
-                <div>
-                  {/* <AdminPanel onUpdate={handleTeamsUpdate} /> */}
-                  {/* <Leaderboard /> */}
-                </div>
+                <Dashboard /> 
+                
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/boys"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                {" "}
+                <Boys/>
+                
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/girls"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                {" "}
+                <Girls/>
+                
               </AdminLayout>
             </ProtectedRoute>
           }

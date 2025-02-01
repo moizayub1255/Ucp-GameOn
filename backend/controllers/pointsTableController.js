@@ -1,58 +1,33 @@
-// File: controllers/pointsTableController.js
 import PointsTable from "../models/PointsTable.js";
 
-// Get the complete points table
-export const getPointsTable = async (req, res) => {
-  try {
-    const pointsTable = await PointsTable.findOne();
-    res.status(200).json(pointsTable || { games: [] });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching points table", error });
-  }
-};
-
-// Add a new game to the points table
-export const addGame = async (req, res) => {
-  const { gameName, boysPoints, girlsPoints } = req.body;
-
-  if (!gameName || !boysPoints || !girlsPoints) {
-    return res.status(400).json({ message: "All fields are required." });
-  }
-
-  try {
-    let pointsTable = await PointsTable.findOne();
-    if (!pointsTable) {
-      pointsTable = new PointsTable({ games: [] });
-    }
-
-    pointsTable.games.push({ gameName, boysPoints, girlsPoints });
-    await pointsTable.save();
-    res.status(201).json({ message: "Game added successfully!", pointsTable });
-  } catch (error) {
-    res.status(500).json({ message: "Error adding game", error });
-  }
-};
-
-// Update points for a specific game
+// ➤ Points update karne ka function
 export const updatePoints = async (req, res) => {
-  const { gameId, boysPoints, girlsPoints } = req.body;
-
   try {
-    const pointsTable = await PointsTable.findOne();
-    if (!pointsTable) {
-      return res.status(404).json({ message: "Points table not found" });
+    const { gameId, category, points } = req.body;
+
+    const updatedTable = await PointsTable.findOneAndUpdate(
+      { game: gameId, category },
+      { points },
+      { new: true }
+    );
+
+    if (!updatedTable) {
+      return res.status(404).json({ message: "Game not found in points table" });
     }
 
-    const game = pointsTable.games.id(gameId);
-    if (!game) {
-      return res.status(404).json({ message: "Game not found" });
-    }
-
-    game.boysPoints = boysPoints;
-    game.girlsPoints = girlsPoints;
-    await pointsTable.save();
-    res.status(200).json({ message: "Points updated successfully!", pointsTable });
+    res.json({ message: "Points updated successfully", updatedTable });
   } catch (error) {
     res.status(500).json({ message: "Error updating points", error });
+  }
+};
+
+// ➤ Boys aur Girls ka points table fetch karne ka function
+export const getPointsTable = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const pointsTable = await PointsTable.find({ category }).populate("game");
+    res.json(pointsTable);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching points table", error });
   }
 };

@@ -115,14 +115,14 @@ const Footer = () => {
                     Register
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/login"
                     className="nav-link text-light text-decoration-none"
                   >
                     Admin Pannel
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 

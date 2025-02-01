@@ -49,7 +49,9 @@ const Dashboard = () => {
   };
 
   return (
+    
     <div>
+      
       <h1>Admin Dashboard</h1>
       {pointsData.length === 0 ? (
         <p>No teams found</p>

@@ -6,5 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: true, // Ensure Hot Module Replacement is enabled
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000", // Backend server URL
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });

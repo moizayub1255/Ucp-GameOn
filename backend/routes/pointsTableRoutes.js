@@ -1,20 +1,11 @@
-// File: routes/pointsTableRoutes.js
 import express from "express";
-import {
-  getPointsTable,
-  addGame,
-  updatePoints,
-} from "../controllers/pointsTableController.js";
+import { updatePoints , getPointsTable } from "../controllers/pointsTableController.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Endpoint to fetch the points table
+// Routes
 router.get("/", getPointsTable);
-
-// Endpoint to add a new game
-router.post("/add-game", addGame);
-
-// Endpoint to update points for a game
-router.put("/update-points", updatePoints);
+router.put("/update-points",protect,admin, updatePoints);
 
 export default router;
