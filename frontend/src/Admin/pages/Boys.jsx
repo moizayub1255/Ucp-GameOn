@@ -16,9 +16,12 @@ const Boys = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("/api/games", {
-          params: { category: "boys" },
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/games/games",
+          {
+            params: { category: "boys" },
+          }
+        );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setGames(response.data);
@@ -38,10 +41,13 @@ const Boys = () => {
   const handleAddGame = async () => {
     if (!newGame) return alert("Please enter a game name");
     try {
-      const response = await axios.post("/api/games/add-game", {
-        name: newGame,
-        category: "boys",
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/games/add-game",
+        {
+          name: newGame,
+          category: "boys",
+        }
+      );
       setGames([...games, response.data.game]);
       setNewGame("");
     } catch (error) {
@@ -52,11 +58,22 @@ const Boys = () => {
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
     try {
-      await axios.put("/api/points-table/update-points", {
-        gameId,
-        category: "boys",
-        points,
-      });
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "http://localhost:5000/api/points-table/update-points",
+        {
+          gameId,
+          category: "boys",
+          points,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       alert("Points updated successfully!");
     } catch (error) {
       console.error("Error updating points:", error);
@@ -67,7 +84,7 @@ const Boys = () => {
     <Headandfoot>
       <div style={{ padding: "20px", textAlign: "center" }}>
         <h1>Boys Games Management</h1>
-        <p>Add new games and update points for Boys here.</p>
+        <p>Add new games and update points for girls here.</p>
 
         {/* Add New Game Section */}
         <div>

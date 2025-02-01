@@ -16,7 +16,7 @@ const Girls = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("/api/games", {
+        const response = await axios.get("http://localhost:5000/api/games/games", {
           params: { category: "girls" },
         });
         console.log("API Response:", response.data);
@@ -38,7 +38,7 @@ const Girls = () => {
   const handleAddGame = async () => {
     if (!newGame) return alert("Please enter a game name");
     try {
-      const response = await axios.post("/api/games/add-game", {
+      const response = await axios.post("http://localhost:5000/api/games/add-game", {
         name: newGame,
         category: "girls",
       });
@@ -52,7 +52,7 @@ const Girls = () => {
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
     try {
-      await axios.put("/api/points-table/update-points", {
+      await axios.put("http://localhost:5000/api/points-table/update-points", {
         gameId,
         category: "girls",
         points,

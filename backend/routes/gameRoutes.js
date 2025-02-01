@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Routes
 router.get("/games", getGames);
-router.post("/add-game", protect, admin, addGame);
-router.delete("/delete-game/:gameId", protect, admin, deleteGame);
+router.post("/add-game", protect,admin,addGame);
+router.delete("/delete-game/:gameId",protect,admin, deleteGame);
 
 export default router;
