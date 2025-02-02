@@ -55,6 +55,13 @@ const Leaderboard = () => {
     borderRadius: "50%",
   };
 
+  // Adding a responsive wrapper for tables
+  const tableWrapperStyle = {
+    overflowX: "auto", // Enable horizontal scroll on small screens
+    WebkitOverflowScrolling: "touch", // For smooth scrolling on mobile
+    maxWidth: "100%", // Ensures the table doesn't exceed the screen width
+  };
+
   return (
     <Headandfoot>
       <div style={{ padding: "20px", textAlign: "center" }}>
@@ -68,87 +75,95 @@ const Leaderboard = () => {
         {/* Girls Leaderboard */}
         <div>
           <h2>Girls Leaderboard</h2>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>Games</th>
-                <th style={thStyle}>
-                  <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
-                </th>
-                <th style={thStyle}>
-                  <img
-                    src="./warriors.png"
-                    alt="UCP Warriors"
-                    style={imgStyle}
-                  />
-                </th>
-                <th style={thStyle}>
-                  <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
-                </th>
-                <th style={thStyle}>
-                  <img
-                    src="./gladiators.png"
-                    alt="Gladiators"
-                    style={imgStyle}
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {girlsLeaderboard.map((game) => (
-                <tr key={game._id}>
-                  <td style={tdStyle}>{game?.game?.name || "Unknown Game"}</td>
-                  <td style={tdStyle}>{game.points.Jaguars}</td>
-                  <td style={tdStyle}>{game.points.Warriors}</td>
-                  <td style={tdStyle}>{game.points.Hawks}</td>
-                  <td style={tdStyle}>{game.points.Gladiators}</td>
+          <div style={tableWrapperStyle}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Games</th>
+                  <th style={thStyle}>
+                    <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
+                  </th>
+                  <th style={thStyle}>
+                    <img
+                      src="./warriors.png"
+                      alt="UCP Warriors"
+                      style={imgStyle}
+                    />
+                  </th>
+                  <th style={thStyle}>
+                    <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
+                  </th>
+                  <th style={thStyle}>
+                    <img
+                      src="./gladiators.png"
+                      alt="Gladiators"
+                      style={imgStyle}
+                    />
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {girlsLeaderboard.map((game) => (
+                  <tr key={game._id}>
+                    <td style={tdStyle}>
+                      {game?.game?.name || "Unknown Game"}
+                    </td>
+                    <td style={tdStyle}>{game.points.Jaguars}</td>
+                    <td style={tdStyle}>{game.points.Warriors}</td>
+                    <td style={tdStyle}>{game.points.Hawks}</td>
+                    <td style={tdStyle}>{game.points.Gladiators}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Boys Leaderboard */}
         <div>
           <h2>Boys Leaderboard</h2>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>Games</th>
-                <th style={thStyle}>
-                  <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
-                </th>
-                <th style={thStyle}>
-                  <img
-                    src="./warriors.png"
-                    alt="UCP Warriors"
-                    style={imgStyle}
-                  />
-                </th>
-                <th style={thStyle}>
-                  <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
-                </th>
-                <th style={thStyle}>
-                  <img
-                    src="./gladiators.png"
-                    alt="Gladiators"
-                    style={imgStyle}
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {boysLeaderboard.map((game) => (
-                <tr key={game._id}>
-                  <td style={tdStyle}>{game?.game?.name || "Unknown Game"}</td>
-                  <td style={tdStyle}>{game.points.Jaguars}</td>
-                  <td style={tdStyle}>{game.points.Warriors}</td>
-                  <td style={tdStyle}>{game.points.Hawks}</td>
-                  <td style={tdStyle}>{game.points.Gladiators}</td>
+          <div style={tableWrapperStyle}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Games</th>
+                  <th style={thStyle}>
+                    <img src="./jaguars.png" alt="Jaguars" style={imgStyle} />
+                  </th>
+                  <th style={thStyle}>
+                    <img
+                      src="./warriors.png"
+                      alt="UCP Warriors"
+                      style={imgStyle}
+                    />
+                  </th>
+                  <th style={thStyle}>
+                    <img src="./hawks.png" alt="UCP Hawks" style={imgStyle} />
+                  </th>
+                  <th style={thStyle}>
+                    <img
+                      src="./gladiators.png"
+                      alt="Gladiators"
+                      style={imgStyle}
+                    />
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {boysLeaderboard.map((game) => (
+                  <tr key={game._id}>
+                    <td style={tdStyle}>
+                      {game?.game?.name || "Unknown Game"}
+                    </td>
+                    <td style={tdStyle}>{game.points.Jaguars}</td>
+                    <td style={tdStyle}>{game.points.Warriors}</td>
+                    <td style={tdStyle}>{game.points.Hawks}</td>
+                    <td style={tdStyle}>{game.points.Gladiators}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </Headandfoot>

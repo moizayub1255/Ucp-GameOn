@@ -6,10 +6,10 @@ export const addGame = async (req, res) => {
   try {
     const { name, category } = req.body;
 
-    // Check if game already exists
+    // ✅ Sirf same category mai duplicate check hoga
     const existingGame = await Game.findOne({ name, category });
     if (existingGame) {
-      return res.status(400).json({ message: "Game already exists!" });
+      return res.status(400).json({ message: `Game already exists in ${category} category!` });
     }
 
     const game = new Game({ name, category });
@@ -28,6 +28,7 @@ export const addGame = async (req, res) => {
     res.status(500).json({ message: "Error adding game", error });
   }
 };
+
 
 // ➤ Game delete karne ka function
 export const deleteGame = async (req, res) => {
