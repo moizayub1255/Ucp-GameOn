@@ -26,8 +26,11 @@ export const getPointsTable = async (req, res) => {
   try {
     const { category } = req.query;
     const pointsTable = await PointsTable.find({ category }).populate("game");
+
+    console.log("Points Table Response:", pointsTable);  // Debugging
     res.json(pointsTable);
   } catch (error) {
     res.status(500).json({ message: "Error fetching points table", error });
   }
 };
+

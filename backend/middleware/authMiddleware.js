@@ -5,46 +5,35 @@ import User from "../models/userModel.js";
 export const protect = async (req, res, next) => {
   let token;
 
-  // Check if Authorization header is present
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     try {
-      // Extract the token from the authorization header
       token = req.headers.authorization.split(" ")[1];
-      
-      // Log the token for debugging
-      console.log("Token received:", token);
+      console.log("Received Token:", token);
 
-      // Verify the token and decode it
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("Decoded User:", decoded);
 
-      // Log decoded information for debugging
-      console.log("Decoded user:", decoded);
-
-      // Fetch the user from the database based on the decoded token ID
       req.user = await User.findById(decoded._id).select("-password");
-
-      // Log the user fetched from DB
-      console.log("User from DB:", req.user);
+      console.log("User Found in DB:", req.user);
 
       if (!req.user) {
         return res.status(401).json({ message: "User not found" });
       }
 
-      next(); // Proceed to the next middleware
+      next();
     } catch (error) {
-      // Handle token errors
+      console.error("Token Verification Failed:", error);
       if (error.name === "TokenExpiredError") {
         return res.status(401).json({ message: "Token expired" });
       }
-      
-      console.error("Token verification failed:", error);
       res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {
-    // If no token is provided
+    console.log("No Token Provided");
     res.status(401).json({ message: "Not authorized, no token" });
   }
 };
+
 
 // Admin route middleware
 export const admin = (req, res, next) => {

@@ -41,13 +41,22 @@ const Boys = () => {
   const handleAddGame = async () => {
     if (!newGame) return alert("Please enter a game name");
     try {
+      const token = localStorage.getItem("token"); // Token le lo
+
       const response = await axios.post(
         "http://localhost:5000/api/games/add-game",
         {
           name: newGame,
           category: "boys",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Token bhejo
+          },
         }
       );
+
       setGames([...games, response.data.game]);
       setNewGame("");
     } catch (error) {
@@ -63,7 +72,7 @@ const Boys = () => {
         "http://localhost:5000/api/points-table/update-points",
         {
           gameId,
-          category: "boys",
+          category: "boys", // Girls.jsx me "girls" hoga
           points,
         },
         {
@@ -75,6 +84,7 @@ const Boys = () => {
       );
 
       alert("Points updated successfully!");
+      window.location.reload(); // Refresh page to update Leaderboard
     } catch (error) {
       console.error("Error updating points:", error);
     }
@@ -84,7 +94,7 @@ const Boys = () => {
     <Headandfoot>
       <div style={{ padding: "20px", textAlign: "center" }}>
         <h1>Boys Games Management</h1>
-        <p>Add new games and update points for girls here.</p>
+        <p>Add new games and update points for boys here.</p>
 
         {/* Add New Game Section */}
         <div>

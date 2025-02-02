@@ -16,9 +16,12 @@ const Girls = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/games/games", {
-          params: { category: "girls" },
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/games/games",
+          {
+            params: { category: "girls" },
+          }
+        );
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
           setGames(response.data);
@@ -38,30 +41,56 @@ const Girls = () => {
   const handleAddGame = async () => {
     if (!newGame) return alert("Please enter a game name");
     try {
-      const response = await axios.post("http://localhost:5000/api/games/add-game", {
-        name: newGame,
-        category: "girls",
-      });
+      const token = localStorage.getItem("token"); // Token le lo
+  
+      const response = await axios.post(
+        "http://localhost:5000/api/games/add-game",
+        {
+          name: newGame,
+          category: "girls",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Token bhejo
+          },
+        }
+      );
+  
       setGames([...games, response.data.game]);
       setNewGame("");
     } catch (error) {
       console.error("Error adding game:", error);
     }
   };
+  
 
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
     try {
-      await axios.put("http://localhost:5000/api/points-table/update-points", {
-        gameId,
-        category: "girls",
-        points,
-      });
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "http://localhost:5000/api/points-table/update-points",
+        {
+          gameId,
+          category: "girls", // Girls.jsx me "girls" hoga
+          points,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
       alert("Points updated successfully!");
+      window.location.reload(); // Refresh page to update Leaderboard
     } catch (error) {
       console.error("Error updating points:", error);
     }
   };
+  
 
   return (
     <Headandfoot>
