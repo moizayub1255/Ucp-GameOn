@@ -47,9 +47,15 @@ const Home = () => {
         <table className="table table-bordered table-striped table-hover">
           <thead className="thead-light">
             <tr>
-              <th scope="col" className="text-center">Rank</th>
-              <th scope="col" className="text-center">Team</th>
-              <th scope="col" className="text-center">Points</th>
+              <th scope="col" className="text-center">
+                Rank
+              </th>
+              <th scope="col" className="text-center">
+                Team
+              </th>
+              <th scope="col" className="text-center">
+                Points
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +67,7 @@ const Home = () => {
                   <td>
                     <div className="d-flex align-items-center justify-content-center">
                       <img
-                        src={team.img || "https://via.placeholder.com/50"}
+                        src={team.img}
                         alt={team.teamName}
                         style={{
                           width: "40px",

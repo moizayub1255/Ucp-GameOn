@@ -100,6 +100,9 @@ const Leaderboard = () => {
                       style={imgStyle}
                     />
                   </th>
+                  <th style={thStyle}>
+                    <img src="./falcon.png" alt="Falcons" style={imgStyle} />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -112,6 +115,7 @@ const Leaderboard = () => {
                     <td style={tdStyle}>{game.points.Warriors}</td>
                     <td style={tdStyle}>{game.points.Hawks}</td>
                     <td style={tdStyle}>{game.points.Gladiators}</td>
+                    <td style={tdStyle}>{game.points.Falcons}</td>
                   </tr>
                 ))}
               </tbody>
@@ -147,6 +151,13 @@ const Leaderboard = () => {
                       style={imgStyle}
                     />
                   </th>
+                  <th style={thStyle}>
+                    <img
+                      src="./falcon.png"
+                      alt="Falcons"
+                      style={imgStyle}
+                    />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -159,6 +170,7 @@ const Leaderboard = () => {
                     <td style={tdStyle}>{game.points.Warriors}</td>
                     <td style={tdStyle}>{game.points.Hawks}</td>
                     <td style={tdStyle}>{game.points.Gladiators}</td>
+                    <td style={tdStyle}>{game.points.Falcons}</td>
                   </tr>
                 ))}
               </tbody>

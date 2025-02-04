@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Headandfoot from "../../Layout/Headandfoot";
 import axios from "axios";
+import AdminHeadFoot from "./AdminHeadFoot";
 
 const Boys = () => {
   const [games, setGames] = useState([]); // Initialize as empty array
@@ -10,6 +10,7 @@ const Boys = () => {
     Warriors: 0,
     Hawks: 0,
     Gladiators: 0,
+    Falcons: 0,
   });
 
   // Fetch existing games for girls
@@ -38,36 +39,35 @@ const Boys = () => {
   }, []);
 
   // Add a new game
-const handleAddGame = async () => {
-  if (!newGame) return alert("Please enter a game name");
+  const handleAddGame = async () => {
+    if (!newGame) return alert("Please enter a game name");
 
-  // 🆕 Convert name to lowercase
-  const formattedGameName = newGame.toLowerCase();
+    // 🆕 Convert name to lowercase
+    const formattedGameName = newGame.toLowerCase();
 
-  try {
-    const token = localStorage.getItem("token"); // Token le lo
+    try {
+      const token = localStorage.getItem("token"); // Token le lo
 
-    const response = await axios.post(
-      "http://localhost:5000/api/games/add-game",
-      {
-        name: formattedGameName, // Updated name in lowercase
-        category: "boys",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Token bhejo
+      const response = await axios.post(
+        "http://localhost:5000/api/games/add-game",
+        {
+          name: formattedGameName, // Updated name in lowercase
+          category: "boys",
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Token bhejo
+          },
+        }
+      );
 
-    setGames([...games, response.data.game]);
-    setNewGame("");
-  } catch (error) {
-    console.error("Error adding game:", error);
-  }
-};
-
+      setGames([...games, response.data.game]);
+      setNewGame("");
+    } catch (error) {
+      console.error("Error adding game:", error);
+    }
+  };
 
   // Update points for a game
   const handleUpdatePoints = async (gameId) => {
@@ -96,81 +96,90 @@ const handleAddGame = async () => {
   };
 
   return (
-    <Headandfoot>
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <h1>Boys Games Management</h1>
-        <p>Add new games and update points for boys here.</p>
-
-        {/* Add New Game Section */}
-        <div>
-          <h2>Add New Game</h2>
-          <input
-            type="text"
-            value={newGame}
-            onChange={(e) => setNewGame(e.target.value)}
-            placeholder="Enter game name"
-          />
-          <button onClick={handleAddGame}>Add Game</button>
-        </div>
-
-        {/* Update Points Section */}
-        <div>
-          <h2>Update Points</h2>
-          {games.length > 0 ? (
-            games.map((game) => (
-              <div key={game._id} style={{ marginBottom: "20px" }}>
-                <h3>{game.name}</h3>
-                <div>
-                  <label>Jaguars: </label>
-                  <input
-                    type="number"
-                    value={points.Jaguars}
-                    onChange={(e) =>
-                      setPoints({ ...points, Jaguars: e.target.value })
-                    }
-                  />
-                </div>
-                <div>
-                  <label>Warriors: </label>
-                  <input
-                    type="number"
-                    value={points.Warriors}
-                    onChange={(e) =>
-                      setPoints({ ...points, Warriors: e.target.value })
-                    }
-                  />
-                </div>
-                <div>
-                  <label>Hawks: </label>
-                  <input
-                    type="number"
-                    value={points.Hawks}
-                    onChange={(e) =>
-                      setPoints({ ...points, Hawks: e.target.value })
-                    }
-                  />
-                </div>
-                <div>
-                  <label>Gladiators: </label>
-                  <input
-                    type="number"
-                    value={points.Gladiators}
-                    onChange={(e) =>
-                      setPoints({ ...points, Gladiators: e.target.value })
-                    }
-                  />
-                </div>
-                <button onClick={() => handleUpdatePoints(game._id)}>
-                  Save Points
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>No games found. Add a new game to get started.</p>
-          )}
-        </div>
+    <AdminHeadFoot>
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h1>Boys Games Management</h1>
+      <p>Add new games and update points for boys here.</p>
+      {/* Add New Game Section */}
+      <div>
+        <h2>Add New Game</h2>
+        <input
+          type="text"
+          value={newGame}
+          onChange={(e) => setNewGame(e.target.value)}
+          placeholder="Enter game name"
+        />
+        <button onClick={handleAddGame}>Add Game</button>
       </div>
-    </Headandfoot>
+
+      {/* Update Points Section */}
+      <div>
+        <h2>Update Points</h2>
+        {games.length > 0 ? (
+          games.map((game) => (
+            <div key={game._id} style={{ marginBottom: "20px" }}>
+              <h3>{game.name}</h3>
+              <div>
+                <label>Jaguars: </label>
+                <input
+                  type="number"
+                  value={points.Jaguars}
+                  onChange={(e) =>
+                    setPoints({ ...points, Jaguars: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Warriors: </label>
+                <input
+                  type="number"
+                  value={points.Warriors}
+                  onChange={(e) =>
+                    setPoints({ ...points, Warriors: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Hawks: </label>
+                <input
+                  type="number"
+                  value={points.Hawks}
+                  onChange={(e) =>
+                    setPoints({ ...points, Hawks: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Gladiators: </label>
+                <input
+                  type="number"
+                  value={points.Gladiators}
+                  onChange={(e) =>
+                    setPoints({ ...points, Gladiators: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <label>Falcons: </label>
+                <input
+                  type="number"
+                  value={points.Falcons}
+                  onChange={(e) =>
+                    setPoints({ ...points, Falcons: e.target.value })
+                  }
+                />
+              </div>
+              <button onClick={() => handleUpdatePoints(game._id)}>
+                Save Points
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No games found. Add a new game to get started.</p>
+        )}
+      </div>
+    </div>
+    </AdminHeadFoot>
   );
 };
 

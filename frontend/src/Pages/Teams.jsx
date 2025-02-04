@@ -20,15 +20,15 @@ const teams = [
     in: ["Prof. Rana Hammad Habib", "Miss Hira Shahid"],
     // video: "falconstheme.mp4",
   },
-  // {
-  //   name: "Falcons",
-  //   logo: "/falcon.png",
-  //   description:
-  //     "The Falcons are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
-  //   classes: ["BS English", "BS Chemistry", "BS Math"],
-  //   in: ["Prof. Tariq Mehmood", "Miss Aneeqa"],
-  //   // video: "falconstheme.mp4",
-  // },
+  {
+    name: "Falcons",
+    logo: "/falcon.png",
+    description:
+      "The Falcons are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
+    classes: ["BS English", "BS Chemistry", "BS Math"],
+    in: ["Miss Aneeqa"],
+    // video: "falconstheme.mp4",
+  },
   {
     name: "Gladiators",
     logo: "/gladiators.png",
@@ -49,7 +49,6 @@ const teams = [
       "ADAF-9 & ADAF-10",
       "ADCS-4 & ADCS-5",
       "BS Psychology",
-      "BS English", "BS Chemistry", "BS Math"
     ],
     in: ["Prof. Saqib Arshad", "Prof. Badar Chishti", "Miss Warda"],
     // video: "falconstheme.mp4",

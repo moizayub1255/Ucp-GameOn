@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Headandfoot from "../../Layout/Headandfoot";
 import axios from "axios";
+import AdminHeadFoot from "./AdminHeadFoot";
 
 const Girls = () => {
   const [games, setGames] = useState([]); // Initialize as empty array
@@ -10,6 +10,7 @@ const Girls = () => {
     Warriors: 0,
     Hawks: 0,
     Gladiators: 0,
+    Falcons: 0,
   });
 
   // Fetch existing games for girls
@@ -99,7 +100,7 @@ const handleAddGame = async () => {
   
 
   return (
-    <Headandfoot>
+    <AdminHeadFoot>
       <div style={{ padding: "20px", textAlign: "center" }}>
         <h1>Girls Games Management</h1>
         <p>Add new games and update points for girls here.</p>
@@ -163,6 +164,16 @@ const handleAddGame = async () => {
                     }
                   />
                 </div>
+                <div>
+                  <label>Falcons: </label>
+                  <input
+                    type="number"
+                    value={points.Falcons}
+                    onChange={(e) =>
+                      setPoints({ ...points, Falcons: e.target.value })
+                    }
+                  />
+                </div>
                 <button onClick={() => handleUpdatePoints(game._id)}>
                   Save Points
                 </button>
@@ -173,7 +184,7 @@ const handleAddGame = async () => {
           )}
         </div>
       </div>
-    </Headandfoot>
+      </AdminHeadFoot>
   );
 };
 
