@@ -105,7 +105,7 @@ const RegisterNow = () => {
                         <Col><Image src="jaguars.png" height="100" width="100" /></Col>
                         <Col><Image src="hawks.png" height="100" width="100" /></Col>
                         <Col><Image src="gladiators.png" height="100" width="100" /></Col>
-                        <Col><Image src="falcon.png" height="100" width="100" /></Col>
+                        <Col><Image src="falcons.png" height="100" width="100" /></Col>
                     </Row>
                     <p className="text-center">
                         Please complete this form if you would like to compete in the PGC GAME-ON 2025. Please note

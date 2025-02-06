@@ -22,7 +22,7 @@ const teams = [
   },
   {
     name: "Falcons",
-    logo: "/falcon.png",
+    logo: "/falcons.png",
     description:
       "The Falcons are known for their speed and agility. They dominate the field with unmatched teamwork and energy. Whether it’s a nail-biting finish or a clear victory, this team brings their A-game every time.",
     classes: ["BS English", "BS Chemistry", "BS Math"],

@@ -101,7 +101,7 @@ const Leaderboard = () => {
                     />
                   </th>
                   <th style={thStyle}>
-                    <img src="./falcon.png" alt="Falcons" style={imgStyle} />
+                    <img src="./falcons.png" alt="Falcons" style={imgStyle} />
                   </th>
                 </tr>
               </thead>
@@ -153,7 +153,7 @@ const Leaderboard = () => {
                   </th>
                   <th style={thStyle}>
                     <img
-                      src="./falcon.png"
+                      src="./falcons.png"
                       alt="Falcons"
                       style={imgStyle}
                     />
