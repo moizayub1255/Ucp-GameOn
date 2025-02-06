@@ -1,4 +1,4 @@
-# UCP GameOn - Sports Website
+# GameOn - Sports Website
 
 ## Table of Contents
 - [Introduction](#introduction)
