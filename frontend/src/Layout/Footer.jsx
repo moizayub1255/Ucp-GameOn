@@ -99,6 +99,15 @@ const Footer = () => {
                     Leaderboard
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to="/games"
+                    className="nav-link text-light text-decoration-none"
+                  >
+                    Games
+                  </Link>
+                </li>
                 <li>
                   <Link
                     to="/contact"

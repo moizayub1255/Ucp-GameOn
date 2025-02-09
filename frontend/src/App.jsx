@@ -17,6 +17,7 @@ import { PointsProvider } from "./PointsContext.jsx";
 import Boys from "./Admin/pages/Boys.jsx";
 import Girls from "./Admin/pages/Girls.jsx";
 import MainAdmin from "./Admin/pages/MainAdmin.jsx";
+import Games from "./Pages/Games.jsx";
 
 function App() {
   // const [teams, setTeams] = useState(() => {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/events" element={<Events />} />
           <Route path="/teams" element={<Teams />} />
+          <Route path="/games" element={<Games />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/register-now" element={<RegisterNow />} />
           <Route path="/login" element={<Login />} />

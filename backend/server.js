@@ -43,6 +43,8 @@ const seedTeams = async () => {
     { teamName: "Falcons", img: "falcons.png", points: 0 },
   ];
 
+
+
   try {
     // Insert default teams only if they don't already exist
     for (const team of defaultTeams) {
