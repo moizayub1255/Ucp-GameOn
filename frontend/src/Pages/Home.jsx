@@ -26,7 +26,7 @@ const Home = () => {
     <Headandfoot>
       <div className="video-container">
         <video
-          src="Video2.mp4"
+          src="RealVideo.mp4"
           autoPlay
           loop
           muted
